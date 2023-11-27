@@ -10,8 +10,8 @@ import java.util.Iterator;
  * */
 public class CustomArrayImpl<E> implements CustomArray<E> {
 
-    private int size = 0;
-    private int capacity = 0;
+    private int size;
+    private int capacity;
     public static final int DEFAULT_CAPACITY = 10;
     private E[] elements;
 
@@ -93,28 +93,6 @@ public class CustomArrayImpl<E> implements CustomArray<E> {
         return new ArrayIterator<>(elements);
     }
 
-    private void checkBoundsForIndex(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Вы вышли за пределы массива!");
-        }
-    }
-
-    private void checkBounds() {
-        if (size == capacity) {
-            incrCapacity();
-        }
-    }
-
-    private void incrCapacity() {
-        capacity = capacity * 3 / 2 + 1;
-        E[] newArray = (E[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = elements[i];
-            elements[i] = null;
-        }
-        elements = newArray;
-    }
-
     public boolean isEmpty() {
         return size == 0;
     }
@@ -139,5 +117,27 @@ public class CustomArrayImpl<E> implements CustomArray<E> {
                 return sb.append(']').toString();
             sb.append(',').append(' ');
         }
+    }
+
+    private void checkBoundsForIndex(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Вы вышли за пределы массива!");
+        }
+    }
+
+    private void checkBounds() {
+        if (size == capacity) {
+            incrCapacity();
+        }
+    }
+
+    private void incrCapacity() {
+        capacity = capacity * 3 / 2 + 1;
+        E[] newArray = (E[]) new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = elements[i];
+            elements[i] = null;
+        }
+        elements = newArray;
     }
 }

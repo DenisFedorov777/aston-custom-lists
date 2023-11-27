@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Public class implementation of custom LinkedList
+ *
+ * @author dndev
+ * @version 1.0
+ */
 public class CustomLinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
@@ -19,6 +25,14 @@ public class CustomLinkedList<T> {
         }
     }
 
+    /**
+     * Implementation of a custom method for adding an element
+     * Appends the specified element to the end of this list.
+     *
+     * <p>This method is equivalent to {@link #add}.
+     *
+     * @param element the element to add
+     */
     public void add(T element) {
         Node<T> newNode = new Node<>(element);
         if (head == null) {
@@ -32,6 +46,16 @@ public class CustomLinkedList<T> {
         size++;
     }
 
+    /**
+     * Implementation of a custom method for adding an element to a specified position.
+     * Inserts the specified element at the specified position in this list.
+     * Shifts the element currently at that position (if any) and any
+     * subsequent elements to the right (adds one to their indices).
+     *
+     * @param index index at which the specified element is to be inserted
+     * @param element element to be inserted
+     * @throws IndexOutOfBoundsException - if the index is out of range ( index < 0 || index > size() )
+     */
     public void add(int index, T element) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
@@ -55,6 +79,10 @@ public class CustomLinkedList<T> {
         }
     }
 
+    /** Implementation of a custom sorting method using Comparator.
+     * Sorts this list according to the order induced by the specified
+     * {@link Comparator}.  The sort is <i>stable</i>: this method must not
+     *  reorder equal elements.*/
     public void sort(Comparator<? super T> comparator) {
         List<T> list = new ArrayList<>();
         Node<T> current = head;
@@ -71,22 +99,17 @@ public class CustomLinkedList<T> {
         }
     }
 
+    /**
+     * Implementation of a custom method for getting an element from a specified location
+     */
     public T get(int index) {
         return getNode(index).data;
     }
 
-    private Node<T> getNode(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        Node<T> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-        return current;
-    }
-
+    /**
+     * Implementation of a custom method for removing an element from a specified location in the list
+     * @param index
+     */
     public void remove(int index) {
         Node<T> current = getNode(index);
         Node<T> prev = current.prev;
@@ -107,9 +130,23 @@ public class CustomLinkedList<T> {
         size--;
     }
 
+    /**
+     * Implementation of a custom method for clearing the list and removing all elements
+     */
     public void clear() {
         head = null;
         tail = null;
         size = 0;
+    }
+
+    private Node<T> getNode(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<T> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
     }
 }
