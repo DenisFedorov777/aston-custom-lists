@@ -10,7 +10,7 @@ import java.util.List;
  * @author dndev
  * @version 1.0
  */
-public class CustomLinkedList<T> {
+public class CustomLinkedList<T> implements CustomArray<T> {
     private Node<T> head;
     private Node<T> tail;
     private int size;
@@ -47,14 +47,30 @@ public class CustomLinkedList<T> {
     }
 
     /**
+     * Replaces the element at the specified position in this list with the
+     * specified element.
+     *
+     * @param index   index of the element to replace
+     * @param element element to be stored at the specified position
+     */
+    @Override
+    public void set(int index, T element) {
+        if (index >= 0 && index < size) {
+            throw new IndexOutOfBoundsException("Вы ошиблись с индексом!");
+        }
+        Node<T> newVal = getNode(index);
+        T oldVal = newVal.data;
+        newVal.data = element;
+    }
+
+    /**
      * Implementation of a custom method for adding an element to a specified position.
      * Inserts the specified element at the specified position in this list.
      * Shifts the element currently at that position (if any) and any
      * subsequent elements to the right (adds one to their indices).
      *
-     * @param index index at which the specified element is to be inserted
+     * @param index   index at which the specified element is to be inserted
      * @param element element to be inserted
-     * @throws IndexOutOfBoundsException - if the index is out of range ( index < 0 || index > size() )
      */
     public void add(int index, T element) {
         if (index < 0 || index > size) {
@@ -79,10 +95,12 @@ public class CustomLinkedList<T> {
         }
     }
 
-    /** Implementation of a custom sorting method using Comparator.
+    /**
+     * Implementation of a custom sorting method using Comparator.
      * Sorts this list according to the order induced by the specified
      * {@link Comparator}.  The sort is <i>stable</i>: this method must not
-     *  reorder equal elements.*/
+     * reorder equal elements.
+     */
     public void sort(Comparator<? super T> comparator) {
         List<T> list = new ArrayList<>();
         Node<T> current = head;
@@ -108,7 +126,6 @@ public class CustomLinkedList<T> {
 
     /**
      * Implementation of a custom method for removing an element from a specified location in the list
-     * @param index
      */
     public void remove(int index) {
         Node<T> current = getNode(index);
@@ -137,6 +154,10 @@ public class CustomLinkedList<T> {
         head = null;
         tail = null;
         size = 0;
+    }
+
+    public int size() {
+        return size;
     }
 
     private Node<T> getNode(int index) {

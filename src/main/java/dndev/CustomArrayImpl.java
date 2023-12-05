@@ -2,12 +2,13 @@ package dndev;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Iterator;
+
 /**
  * Implementation of custom ArrayList
+ *
  * @author dndev
  * @version 1.0
- * */
+ */
 public class CustomArrayImpl<E> implements CustomArray<E> {
 
     private int size;
@@ -71,15 +72,11 @@ public class CustomArrayImpl<E> implements CustomArray<E> {
         size = 0;
     }
 
-    public void sort() {
-        sort(null);
-    }
-
-    private void sort(Comparator<? super E> comparator) {
+    public void sort(Comparator<? super E> comparator) {
         if (comparator == null) {
             Arrays.sort(elements, 0, size);
         } else {
-            Arrays.sort((E[]) elements, 0, size, comparator);
+            Arrays.sort(elements, 0, size, comparator);
         }
     }
 
@@ -88,35 +85,8 @@ public class CustomArrayImpl<E> implements CustomArray<E> {
         return size;
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return new ArrayIterator<>(elements);
-    }
-
     public boolean isEmpty() {
         return size == 0;
-    }
-
-    @Override
-    public String toString() {
-        Iterator<E> it = iterator();
-        if (!it.hasNext() || size == 0)
-            return "[]";
-
-        StringBuilder sb = new StringBuilder();
-        sb.append('[');
-
-        for (; ; ) {
-            E e = it.next();
-            if (e == null) {
-                sb.delete(sb.length() - 2, sb.length()); //-2
-                return sb.append(']').toString();
-            }
-            sb.append(e == null ? "" : e);
-            if (!it.hasNext())
-                return sb.append(']').toString();
-            sb.append(',').append(' ');
-        }
     }
 
     private void checkBoundsForIndex(int index) {

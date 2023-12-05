@@ -11,7 +11,6 @@ public class Main {
         System.out.println(array.size());
 
         System.out.println(array);
-        array.sort();
         System.out.println("-- сортировка------");
         System.out.println(array);
         array.remove(0);
